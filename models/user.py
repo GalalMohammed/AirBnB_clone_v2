@@ -13,6 +13,7 @@ class User(BaseModel, Base):
         first_name(str): the user's first name.
         last_name(str): the user's last name.
         places (object): user linked places.
+        reviews (object): user review.
     """
     __tablename__ = "users"
     email = Column(String(128), nullable=False)
@@ -20,3 +21,4 @@ class User(BaseModel, Base):
     first_name = Column(String(128))
     last_name = Column(String(128))
     places = relationship('Place', backref='user', cascade='delete')
+    reviews = relationship('Review', backref='user', cascade='delete')
