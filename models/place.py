@@ -61,18 +61,8 @@ class Place(BaseModel, Base):
         reviews_objs = list(storage.all(Review).values())
         return list(filter(lambda obj: obj.place_id == self.id, reviews_objs))
 
-    @property
-    def amenities(self):
-        """Get the list of amenity instances
-        Return:
-            a list.
-        """
-        amenities_objs = list(models.storage.all(
-            models.amenity.Amenity).values())
-        return list(filter(lambda obj: obj.id in self.amenity_ids,
-                           amenities_objs))
-
     @amenities.setter
     def amenities(self, obj):
         if isinstance(obj, models.amenity.Amenity):
-            self.amenities_ids.append(obj)
+            self.amenities.append(obj)
+            self.save()
