@@ -1,9 +1,20 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, Integer, String, ForeignKey, Float
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, Table
 from sqlalchemy.orm import relationship
 from models.review import Review
+import models.amenity
+import models
+
+place_amenity = Table(
+        "place_amenity",
+        Base.metadata,
+        Column('place_id', String(60), ForeignKey("places.id"),
+               primary_key=True),
+        Column('amenity_id', String(60), ForeignKey("amenities.id"),
+               primary_key=True)
+        )
 
 
 class Place(BaseModel, Base):
@@ -22,6 +33,7 @@ class Place(BaseModel, Base):
         longitude (float): place long.
         amenity_ids (list): place amenity ids.
         reviews (object): user review of place.
+        amenities (object): relationship.
 
     """
     __tablename__ = 'places'
@@ -37,12 +49,30 @@ class Place(BaseModel, Base):
     longitude = Column(Float)
     reviews = relationship("Review", backref="place", cascade="delete")
     amenity_ids = []
+    amenities = relationship('Amenity', secondary='place_amenity',
+                             viewonly=False)
 
     @property
     def reviews(self):
         """Get the list of Review instances
         Return:
-            list
+            a list.
         """
         reviews_objs = list(storage.all(Review).values())
         return list(filter(lambda obj: obj.place_id == self.id, reviews_objs))
+
+    @property
+    def amenities(self):
+        """Get the list of amenity instances
+        Return:
+            a list.
+        """
+        amenities_objs = list(models.storage.all(
+            models.amenity.Amenity).values())
+        return list(filter(lambda obj: obj.id in self.amenity_ids,
+                           amenities_objs))
+
+    @amenities.setter
+    def amenities(self, obj):
+        if isinstance(obj, models.amenity.Amenity):
+            self.amenities_ids.append(obj)

@@ -14,7 +14,8 @@ class FileStorage:
         cls(obj): class to filter the returned objects
         """
         if cls:
-            return dict(filter(lambda pair: isinstance(pair[1], cls), FileStorage.__objects.items()))
+            return dict(filter(lambda pair: isinstance(pair[1], cls),
+                               FileStorage.__objects.items()))
         return FileStorage.__objects
 
     def new(self, obj):
@@ -50,7 +51,7 @@ class FileStorage:
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
-                        self.all()[key] = classes[val['__class__']](**val)
+                    self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
 
