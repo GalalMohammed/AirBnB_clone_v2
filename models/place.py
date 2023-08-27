@@ -60,9 +60,3 @@ class Place(BaseModel, Base):
         """
         reviews_objs = list(storage.all(Review).values())
         return list(filter(lambda obj: obj.place_id == self.id, reviews_objs))
-
-    @amenities.setter
-    def amenities(self, obj):
-        if isinstance(obj, models.amenity.Amenity):
-            self.amenities.append(obj)
-            self.save()
