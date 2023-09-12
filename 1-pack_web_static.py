@@ -20,8 +20,9 @@ def do_pack() -> object:
 
     """
     local("mkdir -p versions")
-    archive_path = f"versions/web_static_{datetime.now().strftime('%Y%m%d%H%M%S')}.tgz"
-    result = local("tar -cvf " + archive_path + " web_static")
+    archive_path = "versions/web_static_" +\
+        f"{datetime.now().strftime{'%Y%m%d%H%M%S')}.tgz"
+    result = local("tar -cvzf " + archive_path + " web_static")
     if result.succeeded:
         return archive_path
     return None
