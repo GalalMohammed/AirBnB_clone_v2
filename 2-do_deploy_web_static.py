@@ -2,7 +2,8 @@
 """This module distributes an archive to your web servers."""
 
 
-from pathlib import Path
+# from pathlib import Path
+from os import path
 from fabric.api import run, put, env
 from fabric.context_managers import cd
 from fabric.operations import sudo
@@ -21,12 +22,16 @@ def do_deploy(archive_path: str) -> bool:
         otherwise returns False.
 
     """
-    path = Path(archive_path)
-    if not path.exists():
+    # path = Path(archive_path)
+    # if not path.exists():
+    #     return False
+    if not path.exists(archive_path):
         return False
     # Get the base filename of the atchive (without extension)
-    archive_filename = path.name
-    archive_basename = path.stem
+    # archive_filename = path.name
+    # archive_basename = path.stem
+    archive_filename = path.basename(archive_path)
+    archive_basename = path.splitext(archive_filename)[0]
 
     # Upload the archive to the /tmp/ directory of the web server
     result = put(archive_path, "/tmp/" + archive_filename)
