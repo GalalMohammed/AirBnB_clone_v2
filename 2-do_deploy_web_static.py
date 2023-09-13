@@ -46,7 +46,7 @@ def do_deploy(archive_path: str) -> bool:
         # Move the contents to the current directory
         result = run("mv /data/web_static/releases/" + archive_basename +
                      "/web_static/* /data/web_static/releases/" +
-                      archive_basename)
+                     archive_basename)
 
     if result.succeeded:
         # Remove the empty web_static directory
