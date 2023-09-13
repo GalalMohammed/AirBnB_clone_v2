@@ -45,17 +45,17 @@ def do_deploy(archive_path: str) -> bool:
     if result.succeeded:
         # Move the contents to the current directory
         result = run("mv /data/web_static/releases/" + archive_basename +
-                      "/web_static/* /data/web_static/releases/" +
+                     "/web_static/* /data/web_static/releases/" +
                       archive_basename)
 
     if result.succeeded:
         # Remove the empty web_static directory
         result = run("rm -rf /data/web_static/releases/" + archive_basename +
-                      "/web_static")
+                     "/web_static")
 
     if result.succeeded:
         # Update the symbolic link tests
         run("rm -rf /data/web_static/current")
         result = run("ln -s /data/web_static/releases/" + archive_basename +
-                      " /data/web_static/current")
+                     " /data/web_static/current")
     return result.succeeded
