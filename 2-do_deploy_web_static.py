@@ -33,14 +33,15 @@ def do_deploy(archive_path: str) -> bool:
     if result.succeeded:
         # Create the target directory for the release
         result = run("mkdir -p /data/web_static/releases/" + archive_basename)
-        result = local("mkdir -p /data/web_static/releases/" + archive_basename)
+        result = local("mkdir -p /data/web_static/releases/"
+                       + archive_basename)
 
     if result.succeeded:
         # Uncopmress the archive into the target directory
         result = run("tar -xzf /tmp/" + archive_filename +
                      " -C /data/web_static/releases/" + archive_basename)
         result = local("tar -xzf /tmp/" + archive_filename +
-                     " -C /data/web_static/releases/" + archive_basename)
+                       " -C /data/web_static/releases/" + archive_basename)
 
     if result.succeeded:
         # Remove the uploaded archive
@@ -53,15 +54,15 @@ def do_deploy(archive_path: str) -> bool:
                      "/web_static/* /data/web_static/releases/" +
                      archive_basename)
         result = local("mv /data/web_static/releases/" + archive_basename +
-                     "/web_static/* /data/web_static/releases/" +
-                     archive_basename)
+                       "/web_static/* /data/web_static/releases/" +
+                       archive_basename)
 
     if result.succeeded:
         # Remove the empty web_static directory
         result = run("rm -rf /data/web_static/releases/" + archive_basename +
                      "/web_static")
         result = local("rm -rf /data/web_static/releases/" + archive_basename +
-                     "/web_static")
+                       "/web_static")
 
     if result.succeeded:
         # Update the symbolic link tests
@@ -70,5 +71,5 @@ def do_deploy(archive_path: str) -> bool:
                      " /data/web_static/current")
         local("rm -rf /data/web_static/current")
         result = local("ln -s /data/web_static/releases/" + archive_basename +
-                     " /data/web_static/current")
+                       " /data/web_static/current")
     return result.succeeded
