@@ -57,6 +57,7 @@ def do_deploy(archive_path: str) -> bool:
 
     if result.succeeded:
         # Update the symbolic link tests
-        result = sudo("ln -sf /data/web_static/releases/" + archive_basename +
+        sudo("rm -rf /data/web_static/current")
+        result = sudo("ln -s /data/web_static/releases/" + archive_basename +
                       " /data/web_static/current")
     return result.succeeded
