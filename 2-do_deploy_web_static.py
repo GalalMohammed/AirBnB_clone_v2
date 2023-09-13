@@ -33,8 +33,8 @@ def do_deploy(archive_path: str) -> bool:
     if result.succeeded:
         # Create the target directory for the release
         result = run("mkdir -p /data/web_static/releases/" + archive_basename)
-        result = local("mkdir -p /data/web_static/releases/"
-                       + archive_basename)
+        result = local("mkdir -p /data/web_static/releases/" +
+                       archive_basename)
 
     if result.succeeded:
         # Uncopmress the archive into the target directory
