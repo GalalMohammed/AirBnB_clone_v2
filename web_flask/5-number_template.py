@@ -83,7 +83,7 @@ def is_number(n):
     return f"{n} is a number"
 
 
-# Define a route for the root URL ("/number_template/<n>") with strict_slashes=False
+# Define a route for the root URL ("/number_template/<n>")
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def is_number_template(n):
     """"display n is a number.
