@@ -2,10 +2,10 @@
 """starts a Flask web application.
 
 Example:
-    $ python3 -m web_flask.4-number_route
+    $ python3 -m web_flask.2-c_route
 
 """
-from flask import Flask
+from flask import Flask, render_template
 
 # Create a Flask application instance
 app = Flask(__name__)
@@ -81,6 +81,21 @@ def is_number(n):
 
     """
     return f"{n} is a number"
+
+
+# Define a route for the root URL ("/number_template/<n>")
+@app.route('/number_template/<int:n>', strict_slashes=False)
+def is_number_template(n):
+    """"display n is a number.
+
+    Args:
+        n (int): value.
+
+    Returns:
+        str.
+
+    """
+    return render_template('5-number.html', n=n)
 
 
 if __name__ == '__main__':

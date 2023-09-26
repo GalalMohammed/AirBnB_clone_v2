@@ -2,7 +2,7 @@
 """starts a Flask web application.
 
 Example:
-    $ python3 -m web_flask.2-c_route
+    $ python3 -m web_flask.3-python_route
 
 """
 from flask import Flask
