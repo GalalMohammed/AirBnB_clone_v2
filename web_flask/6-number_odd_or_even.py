@@ -2,7 +2,7 @@
 """starts a Flask web application.
 
 Example:
-    $ python3 -m web_flask.2-c_route
+    $ python3 -m web_flask.6-number_odd_or_even
 
 """
 from flask import Flask, render_template
@@ -96,6 +96,22 @@ def is_number_template(n):
 
     """
     return render_template('5-number.html', n=n)
+
+
+# Define a route for the root URL ("/number_odd_or_even/<n>")
+@app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
+def odd_or_even(n):
+    """"display type of n.
+
+    Args:
+        n (int): value.
+
+    Returns:
+        str.
+
+    """
+    return render_template('6-number_odd_or_even.html', n=n,
+                           type='odd' if n % 2 else 'even')
 
 
 if __name__ == '__main__':
