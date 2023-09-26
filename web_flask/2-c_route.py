@@ -18,7 +18,7 @@ def hello_hbnb():
 
     Returns:
         str.
-    
+
     """
     return "Hello HBNB!"
 
