@@ -2,7 +2,7 @@
 """starts a Flask web application.
 
 Example:
-    $ python3 -m web_flask.1-hello_route
+    $ python3 -m web_flask.2-c_route
 
 """
 from flask import Flask
@@ -18,7 +18,7 @@ def hello_hbnb():
 
     Returns:
         str.
-
+    
     """
     return "Hello HBNB!"
 
@@ -33,6 +33,22 @@ def hbnb():
 
     """
     return "HBNB"
+
+
+# Define a route for the root URL ("/c/<text>") with strict_slashes=False
+@app.route('/c/<text>', strict_slashes=False)
+def c_text(text):
+    """"display 'C' followed by the value of text.
+        '_' will be replaced with ' '.
+
+    Args:
+        text (str): value.
+
+    Returns:
+        str.
+
+    """
+    return "C " + text.replace('_', ' ')
 
 
 if __name__ == '__main__':

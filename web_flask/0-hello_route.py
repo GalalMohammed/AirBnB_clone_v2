@@ -14,6 +14,12 @@ app = Flask(__name__)
 # Define a route for the root URL ("/") with strict_slashes=False
 @app.route('/', strict_slashes=False)
 def hello_hbnb():
+    """display 'Hello HBNB!'.
+
+    Returns:
+        str.
+
+    """
     return "Hello HBNB!"
 
 
